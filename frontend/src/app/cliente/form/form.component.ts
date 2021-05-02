@@ -21,7 +21,6 @@ export class FormComponent implements OnInit {
 
   errores : string[];
   registerForm: FormGroup;
-  registerFormAcademy : FormGroup;
   submitted = false;
   user : User = new User();
 
@@ -108,13 +107,6 @@ export class FormComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
 
-  onSubmitAcademt(user) {
-    this.submitted = true;
-    if (this.registerFormAcademy.invalid) {
-        return;
-    }
-    this.userSer.create(this.registerFormAcademy.value).subscribe()
-  }
 
   onReset() {
     this.submitted = false;

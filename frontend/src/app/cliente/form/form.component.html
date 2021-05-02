@@ -84,24 +84,6 @@
 </div>
 
 <div>
-
-
-  <form [formGroup]="registerFormAcademy" *ngIf="!user.id else elseBlock">
-    <div class="form-row">
-        <div class="form-group col-6">
-            <label></label>
-            <input type="text" formControlName="namber"  class="form-control" [ngClass]="{ 'is-invalid': submitted && d.namber.errors }" />
-            <div *ngIf="submitted && d.namber.errors" class="invalid-feedback">
-                <div *ngIf="d.namber.errors.required">El nombre es requerido</div>
-            </div>
-        </div>
-
-        <button class="btn btn-primary mr-1"  (click)='onSubmitAcademt(user)'  *ngIf="!user.id else elseBlock">Register</button>
-
-    </div>
-
-</form>
-
   <table class="table table-striped" *ngIf="trueAcademi else elseBlockAcademic">
     <thead>
       <tr>
