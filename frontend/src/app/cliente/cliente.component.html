@@ -1,0 +1,35 @@
+
+<br>
+<br>
+<br>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Numero Documento</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Fecha de nacimiento</th>
+      <th scope="col">Telefono</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.id}}</th>
+      <td>{{user.documentNumber}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.dateOfBirth}}</td>
+      <td>{{user.phone}}</td>
+      <td>
+        <button type="button" name="editar" [routerLink]="['/user/form', user.id]" class="btn btn-primary btn-sm">Editar</button>
+      </td>
+      <td>
+        <button type="button" name="eliminar" (click)='delete(user)' class="btn btn-danger btn-sm">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

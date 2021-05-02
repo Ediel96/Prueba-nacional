@@ -1,0 +1,94 @@
+<div class="card m-3">
+  <h5 class="card-header">Registro de empleados</h5>
+  <div class="card-body">
+      <form [formGroup]="registerForm">
+          <div class="form-row">
+              <div class="form-group col-6">
+                  <label>Nombre</label>
+                  <input type="text" formControlName="firstName" [(ngModel)]="user.firstName"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                  <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                      <div *ngIf="f.firstName.errors.required">El nombre es requerido</div>
+                  </div>
+              </div>
+              <div class="form-group col-6">
+                  <label>Apellido</label>
+                  <input type="text" formControlName="lastName" [(ngModel)]="user.lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                  <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                      <div *ngIf="f.lastName.errors.required">El apellido es requerido</div>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-6">
+                <label>Direccion</label>
+                <input type="text" formControlName="andress" [(ngModel)]="user.andress"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.andress.errors }" />
+                <div *ngIf="submitted && f.andress.errors" class="invalid-feedback">
+                    <div *ngIf="f.andress.errors.required">El nombre es requerido</div>
+                </div>
+            </div>
+            <div class="form-group col-6">
+                <label>Telefono</label>
+                <input type="text" formControlName="phone" [(ngModel)]="user.phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required">El apellido es requerido</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de documento</label>
+          <!-- <input type="text"  /> -->
+          <select  class="custom-select" formControlName="typeDocument" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.typeDocument.errors }">
+            <option *ngFor="let typeDocument of typeDocuments" [ngValue]="typeDocument">{{typeDocument.name}}</option>
+          </select>
+          <div *ngIf="submitted && f.typeDocument.errors" class="invalid-feedback">
+              <div *ngIf="f.typeDocument.errors.required">Requiere el correo</div>
+              <div *ngIf="f.typeDocument.errors.typeDocument">No es valido el correo</div>
+          </div>
+        </div>
+
+          <div class="form-group">
+              <label>Numero de documento</label>
+              <input type="text" formControlName="documentNumber" [(ngModel)]="user.documentNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.documentNumber.errors }" />
+              <div *ngIf="submitted && f.documentNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.documentNumber.errors.required">Requiere el correo</div>
+                  <div *ngIf="f.documentNumber.errors.documentNumber">No es valido el correo</div>
+              </div>
+          </div>
+
+           <div class="form-group">
+            <label>Fecha</label>
+            <br>
+            <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [(ngModel)]="user.dateOfBirth" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }" style="display:inline; width: 300px;">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+                <div *ngIf="f.dateOfBirth.errors.required">Requiere la fecha</div>
+                <div *ngIf="f.dateOfBirth.errors.dateOfBirth">No es valido el correo</div>
+            </div>
+          </div>
+
+
+
+          <div class="text-center">
+              <button class="btn btn-primary mr-1"  (click)='onSubmit()'  *ngIf="!user.id else elseBlock">Register</button>
+
+              <ng-template #elseBlock>
+                <button class="btn btn-primary mr-1"  (click)='updateCliente()'>Editar</button>
+              </ng-template>
+
+              <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+<!-- credits -->
+<div class="text-center">
+  <p>
+      <a href="https://jasonwatmore.com/post/2020/04/19/angular-9-reactive-forms-validation-example" target="_top">El ejemplo original</a>
+  </p>
+  <p>
+      <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>
+  </p>
+</div>
