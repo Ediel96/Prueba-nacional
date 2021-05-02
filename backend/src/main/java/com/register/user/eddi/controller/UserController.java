@@ -156,47 +156,61 @@ public class UserController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
-
-    @GetMapping("/user_academy/{id_user}")
-    public ResponseEntity<?> indexAcademy(@PathVariable Long id_user){
-        Map<String, Object> response = new HashMap<>();
-        User user = null;
-        List<UserAcademic> userAcademic = null;
-
-        try {
-            user = userService.findById(id_user);
-        }catch (DataAccessException e){
-            response.put("mensaje" , "Error el Usuario no existe");
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String , Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-
-        try {
-            userAcademic = userAcademicServ.findAllByUser(id_user);
-        }catch (DataAccessException e){
-            response.put("mensaje" , "Error el Usuario no existe");
-            response.put("User" , user);
-            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String , Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        response.put("mensaje", "El cliente ha sido creado el insert en la base de datos");
-        response.put("cliente", userAcademic);
-        response.put("usuario", user);
-        return new ResponseEntity<Map <String, Object> >(response, HttpStatus.CREATED);
-    }
-
-
-
     @GetMapping("/user_academy")
     public List<UserAcademic> indexAllAcademy(){
         return userAcademicServ.findAll();
     }
 
+    @GetMapping("/user_academy/{id_user}")
+    public ResponseEntity<?> indexAcademy(@PathVariable Long id_user){
+        Map<String, Object> response = new HashMap<>();
+        List<UserAcademic> userAcademic = null;
 
-    @PostMapping("/user_academy/{id}")
-    public  ResponseEntity <?> saveAcademy(){
+        try {
+            userAcademic = userAcademicServ.findAllByUser(id_user);
+        }catch (DataAccessException e){
+            response.put("mensaje" , "Error el Usuario no existe");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String , Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje", "El cliente ha sido creado el insert en la base de datos");
+        response.put("user", userAcademic);
+        return new ResponseEntity<Map <String, Object> >(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/user_academy/{id_user}")
+    public ResponseEntity<?> saveAcademy(@Valid @RequestBody UserAcademic userAcademic, BindingResult result , @PathVariable Long id_user){
+        Map<String, Object> response = new HashMap<>();
+        UserAcademic userAcademicNew = null;
+        User user = null;
+
+        user = userService.findById(id_user);
+        if(user == null){
+            response.put("mensaje", "El  Usuario ID: ".concat(id_user.toString().concat(" no existe en la base de datos!")));
+            return new ResponseEntity<Map<String , Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        try {
+//            userAcademic.setUser(user);
+            userAcademicNew = (UserAcademic) userAcademicServ.save(userAcademic);
+        }catch (DataAccessException e){
+            response.put("mensaje" , "Error el Usuario no existe");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String , Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje", "El cliente ha sido creado el insert en la base de datos");
+        response.put("user", userAcademic);
+        return new ResponseEntity<Map <String, Object> >(response, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/user_academy/{id}")
+    public  ResponseEntity <?> deleteAcademy(@PathVariable Long id){
+        Map<String, Object> response = new HashMap<>();
+        List<UserAcademic> userAcademic = null;
+
+
         return null;
     }
 }

@@ -1,3 +1,4 @@
+import { UserAcademy } from './../../core/model/UserCademy';
 // import { Component, OnInit } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
@@ -5,7 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 
 import { UserService } from '../../core/services/user.service';
-import {TypeDocumentService} from '../../core/services/type-document.service'
+import { TypeDocumentService } from '../../core/services/type-document.service';
+import { UserAcademyService } from './../../core/services/user-academy.service';
 
 import {User} from '../../core/model/User';
 import { TypeDocument } from 'src/app/core/model/TypeDocument';
@@ -19,12 +21,15 @@ export class FormComponent implements OnInit {
 
   errores : string[];
   registerForm: FormGroup;
+  registerFormAcademy : FormGroup;
   submitted = false;
   user : User = new User();
 
   typeDocuments : TypeDocument[];
+  userAcademics : UserAcademy[];
+  trueAcademi : UserAcademy;
 
-  constructor(private formBuilder: FormBuilder, private userSer : UserService,
+  constructor(private formBuilder: FormBuilder, private userSer : UserService, private userAcademy : UserAcademyService,
     private router : Router, private activatedRoute : ActivatedRoute, private typeDocuServ:TypeDocumentService) { }
 
     ngOnInit(): void {
@@ -38,8 +43,11 @@ export class FormComponent implements OnInit {
         typeDocument: ['', [Validators.required]],
     });
 
+
+
     this.cargarUser();
     this.typeDocuServ.getTypeDocument().subscribe(typeDocuments => this.typeDocuments  = typeDocuments);
+
   }
 
 
@@ -85,18 +93,28 @@ export class FormComponent implements OnInit {
       let id = params['id'];
       if(id){
         this.userSer.getCliente(id).subscribe(
-          (cliente)=> this.user = cliente
+          (user)=> this.user = user
         )
       }
       if(id){
-        this.userSer.getCliente(id).subscribe(
-          (cliente)=> this.user = cliente
-        )
+        this.userAcademy.getUserAcademy(id).subscribe(userAcademic => {
+          this.userAcademics = userAcademic , this.trueAcademi = userAcademic[0],
+          console.log(userAcademic[0])
+        })
       }
     })
   }
 
   get f() { return this.registerForm.controls; }
+
+
+  onSubmitAcademt(user) {
+    this.submitted = true;
+    if (this.registerFormAcademy.invalid) {
+        return;
+    }
+    this.userSer.create(this.registerFormAcademy.value).subscribe()
+  }
 
   onReset() {
     this.submitted = false;

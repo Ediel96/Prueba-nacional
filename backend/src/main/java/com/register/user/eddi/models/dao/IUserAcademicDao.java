@@ -12,7 +12,7 @@ public interface IUserAcademicDao extends JpaRepository<UserAcademic, Long> {
 //    @Query(value = "select  u from UserAcademic  u where u.user_id = ?1", nativeQuery = true)
 
 //    @Query(value = "select * from user_academic where  u.", nativeQuery = true)
-    @Query("select  u from UserAcademic u where u.user.id = ?1")
+    @Query("select  u  from UserAcademic u where u.user.id = ?1")
     public List<UserAcademic> findAllByUser(long id);
 
     public  UserAcademic findByUser(long id);

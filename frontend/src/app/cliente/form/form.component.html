@@ -83,12 +83,45 @@
   </div>
 </div>
 
-<!-- credits -->
-<div class="text-center">
-  <p>
-      <a href="https://jasonwatmore.com/post/2020/04/19/angular-9-reactive-forms-validation-example" target="_top">El ejemplo original</a>
-  </p>
-  <p>
-      <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>
-  </p>
+<div>
+
+
+  <form [formGroup]="registerFormAcademy" *ngIf="!user.id else elseBlock">
+    <div class="form-row">
+        <div class="form-group col-6">
+            <label></label>
+            <input type="text" formControlName="namber"  class="form-control" [ngClass]="{ 'is-invalid': submitted && d.namber.errors }" />
+            <div *ngIf="submitted && d.namber.errors" class="invalid-feedback">
+                <div *ngIf="d.namber.errors.required">El nombre es requerido</div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary mr-1"  (click)='onSubmitAcademt(user)'  *ngIf="!user.id else elseBlock">Register</button>
+
+    </div>
+
+</form>
+
+  <table class="table table-striped" *ngIf="trueAcademi else elseBlockAcademic">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">carrera</th>
+      </tr>
+    </thead >
+    <tbody>
+      <tr *ngFor="let userAcademi of userAcademics">
+        <th scope="row">{{userAcademi.id}}</th>
+        <td>{{userAcademi.namber}}</td>
+\     </tr>
+    </tbody>
+  </table>
+
+  <ng-template #elseBlockAcademic>
+    <h3>No hay ningun dato academico </h3>
+   </ng-template>
+
+
+
+
 </div>

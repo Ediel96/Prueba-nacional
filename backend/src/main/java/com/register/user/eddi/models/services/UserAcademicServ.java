@@ -10,7 +10,7 @@ public interface UserAcademicServ {
 
     public List<UserAcademic> findAll();
 
-    public UserAcademicServ save(UserAcademic userAcademic);
+    public UserAcademic save(UserAcademic userAcademic);
 
     public void delete(Long id);
 }

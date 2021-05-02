@@ -26,12 +26,13 @@ public class UserAcademicImpServ implements UserAcademicServ {
     }
 
     @Override
-    public UserAcademicServ save(UserAcademic userAcademic) {
-        return null;
+    @Transactional
+    public UserAcademic save(UserAcademic userAcademic) {
+        return iUserAcademicDao.save(userAcademic);
     }
 
     @Override
     public void delete(Long id) {
-
+            iUserAcademicDao.deleteById(id);
     }
 }
