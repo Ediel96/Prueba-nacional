@@ -88,7 +88,20 @@ export class UserService {
           return throwError(e);
         }
         console.error(console.error(e.error.mensaje));
-        Swal.fire('Error al editar el cliente',e.error.mensaje , 'error');
+        Swal.fire('Error al editar el user',e.error.mensaje , 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  delete(id: number) : Observable<User>{
+    return this.http.delete<User>(`${this.urlEndPoint}/${id}`, {headers: this.httpheader}).pipe(
+      catchError(e => {
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+        console.error(console.error(e.error.mensaje));
+        Swal.fire('Error al eliminar ',e.error.mensaje , 'error');
         return throwError(e);
       })
     );
