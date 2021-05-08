@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { MaterialModule } from './core/material.module';
+import { AcademyComponent } from './cliente/form/academy/academy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { MaterialModule } from './core/material.module';
     FormComponent,
     HeaderComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    AcademyComponent
   ],
   imports: [
     BrowserModule,

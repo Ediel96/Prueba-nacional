@@ -1,5 +1,5 @@
 <div class="card m-3">
-  <h5 class="card-header">Registro de empleados</h5>
+  <h5 class="card-header">Registro de Usuarios</h5>
   <div class="card-body">
       <form [formGroup]="registerForm">
           <div class="form-row">
@@ -68,13 +68,11 @@
             </div>
           </div>
 
-
-
           <div class="text-center">
-              <button class="btn btn-primary mr-1"  (click)='onSubmit()'  *ngIf="!user.id else elseBlock">Register</button>
+              <button class="btn btn-primary mr-1"  (click)='onSubmit()'  *ngIf="!user.id else elseBlock">Guardar</button>
 
               <ng-template #elseBlock>
-                <button class="btn btn-primary mr-1"  (click)='updateCliente()'>Editar</button>
+                <button class="btn btn-primary mr-1"  (click)='updateUser()'>Editar</button>
               </ng-template>
 
               <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
@@ -83,27 +81,10 @@
   </div>
 </div>
 
-<div>
-  <table class="table table-striped" *ngIf="trueAcademi else elseBlockAcademic">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">carrera</th>
-      </tr>
-    </thead >
-    <tbody>
-      <tr *ngFor="let userAcademi of userAcademics">
-        <th scope="row">{{userAcademi.id}}</th>
-        <td>{{userAcademi.namber}}</td>
-\     </tr>
-    </tbody>
-  </table>
+<app-academy *ngIf="trueAcademi else elseBlockAcademic" [userAcademics]= "userAcademics" ></app-academy>
 
-  <ng-template #elseBlockAcademic>
-    <h3>No hay ningun dato academico </h3>
-   </ng-template>
+<ng-template #elseBlockAcademic>
+  <h3>No hay ningun dato academico </h3>
+</ng-template>
 
 
-
-
-</div>

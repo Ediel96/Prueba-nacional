@@ -1,6 +1,6 @@
 import { UserAcademy } from './../../core/model/UserCademy';
 // import { Component, OnInit } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
@@ -41,8 +41,6 @@ export class FormComponent implements OnInit {
         dateOfBirth: ['', [Validators.required]],
         typeDocument: ['', [Validators.required]],
     });
-
-
 
     this.cargarUser();
     this.typeDocuServ.getTypeDocument().subscribe(typeDocuments => this.typeDocuments  = typeDocuments);
@@ -97,8 +95,8 @@ export class FormComponent implements OnInit {
       }
       if(id){
         this.userAcademy.getUserAcademy(id).subscribe(userAcademic => {
-          this.userAcademics = userAcademic , this.trueAcademi = userAcademic[0],
-          console.log(userAcademic[0])
+          this.userAcademics = userAcademic , this.trueAcademi = userAcademic[0]
+          // console.log(userAcademic[0])
         })
       }
     })
