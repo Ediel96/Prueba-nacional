@@ -23,15 +23,17 @@ export class FormComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
   user : User = new User();
+  idUser : number;
 
   typeDocuments : TypeDocument[];
   userAcademics : UserAcademy[];
-  trueAcademi : UserAcademy;
+  trueAcademi : any;
 
   constructor(private formBuilder: FormBuilder, private userSer : UserService, private userAcademy : UserAcademyService,
     private router : Router, private activatedRoute : ActivatedRoute, private typeDocuServ:TypeDocumentService) { }
 
     ngOnInit(): void {
+
       this.registerForm = this.formBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -40,7 +42,7 @@ export class FormComponent implements OnInit {
         documentNumber :['', Validators.required],
         dateOfBirth: ['', [Validators.required]],
         typeDocument: ['', [Validators.required]],
-    });
+      });
 
     this.cargarUser();
     this.typeDocuServ.getTypeDocument().subscribe(typeDocuments => this.typeDocuments  = typeDocuments);
@@ -95,16 +97,16 @@ export class FormComponent implements OnInit {
       }
       if(id){
         this.userAcademy.getUserAcademy(id).subscribe(userAcademic => {
-          this.userAcademics = userAcademic , this.trueAcademi = userAcademic[0]
-          // console.log(userAcademic[0])
+          this.userAcademics = userAcademic, this.trueAcademi = true,
+          this.idUser = id;
+          console.log('id',id)
+          console.log(this.userAcademics)
         })
       }
     })
   }
 
   get f() { return this.registerForm.controls; }
-
-
 
   onReset() {
     this.submitted = false;

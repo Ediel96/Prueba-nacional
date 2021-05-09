@@ -1,4 +1,6 @@
 import { UserAcademy } from './../model/UserCademy';
+import {User} from '../model/User'
+
 import { Injectable } from '@angular/core';
 import { Observable, throwError, of } from 'rxjs';
 import { HttpClient,  HttpEvent,  HttpHeaders, HttpRequest } from '@angular/common/http';
@@ -30,6 +32,7 @@ export class UserAcademyService {
   }
 
   create(user_academy: UserAcademy, id: number) : Observable<UserAcademy> {
+
     return this.http.post( `${this.urlEndPoint}/${id}` , user_academy, {headers: this.httpheader}).pipe(
       map((response : any) => response.user as UserAcademy),
       catchError(e => {
@@ -40,6 +43,17 @@ export class UserAcademyService {
         Swal.fire('Error al crear el cliente',e.error.mensaje , 'error');
         return throwError(e);
       })
+    );
+  }
+
+  delete(id: number) : Observable<User>{
+    return this.http.delete<User>(`${this.urlEndPoint}/${id}`, {headers: this.httpheader}).pipe(
+      catchError(e => {
+        // if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+
+      )
     );
   }
 

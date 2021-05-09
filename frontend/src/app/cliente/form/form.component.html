@@ -81,10 +81,11 @@
   </div>
 </div>
 
-<app-academy *ngIf="trueAcademi else elseBlockAcademic" [userAcademics]= "userAcademics" ></app-academy>
+<app-academy *ngIf="trueAcademi" [userAcademics]= "userAcademics" [idUser]="idUser"></app-academy>
 
-<ng-template #elseBlockAcademic>
-  <h3>No hay ningun dato academico </h3>
-</ng-template>
+
+
+
+
 
 

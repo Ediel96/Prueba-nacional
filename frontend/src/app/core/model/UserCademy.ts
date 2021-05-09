@@ -2,6 +2,6 @@ import { User } from "./User";
 
 export class UserAcademy {
   user: User;
-  id: string;
+  id: number;
   namber: string;
 }
