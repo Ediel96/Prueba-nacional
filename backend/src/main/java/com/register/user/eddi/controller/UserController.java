@@ -192,7 +192,7 @@ public class UserController {
         }
 
         try {
-//            userAcademic.setUser(user);
+            userAcademic.setUser(user);
             userAcademicNew = (UserAcademic) userAcademicServ.save(userAcademic);
         }catch (DataAccessException e){
             response.put("mensaje" , "Error el Usuario no existe");
@@ -210,7 +210,18 @@ public class UserController {
         Map<String, Object> response = new HashMap<>();
         List<UserAcademic> userAcademic = null;
 
+        try {
+            UserAcademic userAcademicNew = userAcademicServ.findById(id);
 
-        return null;
+            userAcademicServ.delete(id);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "Error al eliminar el cliente de la base de datos");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje", "El cliente eliminado con éxito!");
+
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 }

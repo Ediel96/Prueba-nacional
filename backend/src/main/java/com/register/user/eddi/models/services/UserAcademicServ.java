@@ -8,6 +8,8 @@ import java.util.List;
 public interface UserAcademicServ {
     public List<UserAcademic> findAllByUser(Long id);
 
+    public UserAcademic findById(Long id);
+
     public List<UserAcademic> findAll();
 
     public UserAcademic save(UserAcademic userAcademic);

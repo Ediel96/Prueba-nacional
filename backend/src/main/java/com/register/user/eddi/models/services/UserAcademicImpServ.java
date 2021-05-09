@@ -21,6 +21,11 @@ public class UserAcademicImpServ implements UserAcademicServ {
     }
 
     @Override
+    public UserAcademic findById(Long id) {
+        return iUserAcademicDao.findById(id).orElse(null);
+    }
+
+    @Override
     public List<UserAcademic> findAll() {
         return iUserAcademicDao.findAll();
     }
